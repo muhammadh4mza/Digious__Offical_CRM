@@ -5,6 +5,7 @@ import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import Dashboard from './pages/Dashboard';
 import Attendance from './pages/Attendance';
+import ActivityTracker from './pages/ActivityTracker';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           {/* Protected routes - will add authentication later */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/activity-tracker" element={<ActivityTracker />} />
           
           {/* Default redirect */}
           <Route path="/" element={<Navigate to="/login" />} />
