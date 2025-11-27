@@ -16,6 +16,7 @@ import {
   Activity // Added missing import
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+// import TopNavMenu from './TopNavMenu';
 
 export function SuperAdminDashboard() {
   const location = useLocation();
@@ -497,14 +498,17 @@ export function SuperAdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 relative overflow-hidden">
+      {/* Top Navigation Menu */}
+      {/* <TopNavMenu activeItem="dashboard" setActiveItem={() => {}} isSidebarCollapsed={false} /> */}
+
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-1000"></div>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 p-6">
         {/* Header */}
         <div className="mb-8">
           <div className="flex justify-between items-center">

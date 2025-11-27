@@ -5,7 +5,11 @@ import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import Dashboard from './pages/Dashboard';
 import Attendance from './pages/Attendance';
+import HrAttendance from './pages/HrAttendance';
+import SuperAttendance from './pages/SuperAttendance';
+import SuperDashboard from './pages/SuperDashboard';
 import ActivityTracker from './pages/ActivityTracker';
+import EmployeeAttendance from './pages/EmployeeAtt';
 
 function App() {
   return (
@@ -19,8 +23,13 @@ function App() {
           {/* Protected routes - will add authentication later */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/superdashboard" element={<SuperDashboard />} />
+          <Route path="/hrattendance" element={<HrAttendance />} />
+          <Route path="/superAttendance" element={<SuperAttendance />} />
+          <Route path="/attendance" element={<Attendance />} />
           <Route path="/activity-tracker" element={<ActivityTracker />} />
-          <Route path="/testdashboard" element={<ActivityTracker />} />
+          <Route path="/testdashboard" element={<ActivityTracker />} /> 
+          <Route path="/employeeattendance" element={<EmployeeAttendance />} /> 
           
           {/* Default redirect */}
           <Route path="/" element={<Navigate to="/login" />} />

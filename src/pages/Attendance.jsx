@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 
-import AttendancePage, { HrAttendancePage } from '../components/HrAttendancePage';
+// import AttendancePage, { HrAttendancePage } from '../components/HrAttendancePage';
 
-// import AttendanceManagement from '../components/AttendanceManagement';
+import AttendanceManagement from '../components/AttendanceManagement';
 
 const Attendance = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -57,7 +57,7 @@ const Attendance = () => {
 
         {/* Dashboard Content */}
         <main className="flex-1 overflow-y-auto">
-          <HrAttendancePage/>
+          <AttendanceManagement/>
         </main>
       </div>
 

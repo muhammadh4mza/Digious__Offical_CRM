@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Users, CheckCircle, XCircle, RefreshCw, Calendar, DollarSign, FileText, Target, Clock, LogIn, LogOut } from 'lucide-react';
 import { useAttendance } from '../hooks/UseAttendance';
+import TopNavMenu from './TopNavMenu';
 
 export function SalesDashboard() {
   // State management
@@ -179,7 +180,10 @@ export function SalesDashboard() {
   const weekAttendance = getThisWeekAttendance();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 relative overflow-hidden">
+      {/* Top Navigation Menu */}
+      <TopNavMenu activeItem="Sales" setActiveItem={() => {}} isSidebarCollapsed={false} />
+
       {/* Subtle Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
@@ -188,7 +192,7 @@ export function SalesDashboard() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 p-6">
         {/* Header */}
         <div className="mb-8">
           <div className="flex justify-between items-center">

@@ -1,18 +1,22 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
+  Calendar,
   FileText,
   ClipboardList,
   Settings,
   LogOut,
+  ChevronLeft,
   ChevronRight,
   Bell,
+  UserCheck2Icon,
   SheetIcon,
   BarChart3,
   Briefcase,
   DollarSign,
   TrendingUp,
   Users,
+  CheckCircle,
   RefreshCw,
   MessageSquare,
   CreditCard,
@@ -36,39 +40,39 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, activeItem, setActiveItem }) => 
       label: 'Operations', 
       icon: Briefcase,
       children: [
-        { id: 'attendance', label: 'Attendance', icon: SheetIcon, path: '/attendance' },
+        { id: 'attendance', label: 'Attendance', icon: SheetIcon, path: '/hrattendance' },
         { id: 'activity-tracker', label: 'Activity Tracker', icon: RefreshCw, path: '/activity-tracker' },
         { id: 'employees', label: 'Employees', icon: Users, path: '/employees' },
         { id: 'applications-memos', label: 'Applications & Memos', icon: FileText, path: '/applications-memos' },
-        { id: 'employee-feedback', label: 'Employee Feedback', icon: MessageSquare, path: '/employee-feedback' },
+        // { id: 'employee-feedback', label: 'Employee Feedback', icon: MessageSquare, path: '/employee-feedback' },
       ]
     },
     
     // Finance
-    { 
-      id: 'finance', 
-      label: 'Finance', 
-      icon: DollarSign,
-      children: [
-        { id: 'payroll', label: 'Payroll', icon: CreditCard, path: '/payroll' },
-        { id: 'expenses', label: 'Expenses', icon: Wallet, path: '/expenses' },
-      ]
-    },
+    // { 
+    //   id: 'finance', 
+    //   label: 'Finance', 
+    //   icon: DollarSign,
+    //   children: [
+    //     { id: 'payroll', label: 'Payroll', icon: CreditCard, path: '/payroll' },
+    //     { id: 'expenses', label: 'Expenses', icon: Wallet, path: '/expenses' },
+    //   ]
+    // },
     
     // Business Development
-    { 
-      id: 'business-development', 
-      label: 'Business Development', 
-      icon: TrendingUp,
-      children: [
-        { id: 'sales', label: 'Sales', icon: TrendingUp, path: '/sales' },
-        { id: 'customers', label: 'Customers', icon: Users, path: '/customers' },
-        { id: 'leads', label: 'Leads', icon: Phone, path: '/leads' },
-      ]
-    },
+    // { 
+    //   id: 'business-development', 
+    //   label: 'Business Development', 
+    //   icon: TrendingUp,
+    //   children: [
+    //     { id: 'sales', label: 'Sales', icon: TrendingUp, path: '/sales' },
+    //     { id: 'customers', label: 'Customers', icon: Users, path: '/customers' },
+    //     { id: 'leads', label: 'Leads', icon: Phone, path: '/leads' },
+    //   ]
+    // },
     
     // Projects
-    { id: 'projects', label: 'Projects', icon: ClipboardList, path: '/projects' },
+    // { id: 'projects', label: 'Projects', icon: ClipboardList, path: '/projects' },
     
     // System Settings
     { 
@@ -255,7 +259,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, activeItem, setActiveItem }) => 
                 SA
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-800 truncate">Super Admin</p>
+                <p className="text-sm font-semibold text-gray-800 truncate">HR</p>
                 {/* <p className="text-xs text-gray-600 truncate">System Administrator</p> */}
               </div>
               <button className="p-2 rounded-lg bg-white/70 backdrop-blur-sm border border-blue-200/40 hover:bg-white/90 transition-all duration-300 shadow-sm">

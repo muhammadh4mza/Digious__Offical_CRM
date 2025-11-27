@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar';
-import TopNavMenu from '../components/TopNavMenu';
-import SuperAdminDashboard from '../components/SuperAdminDashboard';
+import HrSidebar from '../components/HrSidebar';
 
-const Dashboard = () => {
+import AttendancePage, { HrAttendancePage } from '../components/HrAttendancePage';
+
+// import AttendanceManagement from '../components/AttendanceManagement';
+
+const Attendance = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,7 +13,7 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar 
+      <HrSidebar 
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
         activeItem={activeItem}
@@ -24,13 +26,6 @@ const Dashboard = () => {
         transition-all duration-300 ease-in-out
         ${isSidebarCollapsed ? 'lg:ml-0' : 'lg:ml-0'}
       `}>
-        {/* Top Navigation Menu */}
-        <TopNavMenu 
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-          isSidebarCollapsed={isSidebarCollapsed}
-        />
-
         {/* Mobile Header */}
         <header className="lg:hidden bg-white border-b border-gray-200 p-4">
           <div className="flex items-center justify-between">
@@ -62,7 +57,7 @@ const Dashboard = () => {
 
         {/* Dashboard Content */}
         <main className="flex-1 overflow-y-auto">
-          <SuperAdminDashboard/>
+          <HrAttendancePage/>
         </main>
       </div>
 
@@ -74,7 +69,7 @@ const Dashboard = () => {
             onClick={() => setIsMobileMenuOpen(false)}
           />
           <div className="absolute inset-y-0 left-0 w-64 bg-white">
-            <Sidebar 
+            <HrSidebar 
               isCollapsed={false}
               setIsCollapsed={setIsMobileMenuOpen}
               activeItem={activeItem}
@@ -87,4 +82,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Attendance;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import TopNavMenu from '../components/TopNavMenu';
-import SuperAdminDashboard from '../components/SuperAdminDashboard';
 
-const Dashboard = () => {
+// import AttendancePage, { HrAttendancePage } from '../components/HrAttendancePage';
+
+import AttendanceManagement from '../components/AttendanceManagement';
+
+const Attendance = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,13 +26,6 @@ const Dashboard = () => {
         transition-all duration-300 ease-in-out
         ${isSidebarCollapsed ? 'lg:ml-0' : 'lg:ml-0'}
       `}>
-        {/* Top Navigation Menu */}
-        <TopNavMenu 
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-          isSidebarCollapsed={isSidebarCollapsed}
-        />
-
         {/* Mobile Header */}
         <header className="lg:hidden bg-white border-b border-gray-200 p-4">
           <div className="flex items-center justify-between">
@@ -55,14 +50,14 @@ const Dashboard = () => {
             </div>
 
             <div className="w-8 h-8 bg-gradient-to-r from-[#349dff] to-[#1e87e6] rounded-full flex items-center justify-center text-white font-semibold text-sm">
-              SJ
+              SA
             </div>
           </div>
         </header>
 
         {/* Dashboard Content */}
         <main className="flex-1 overflow-y-auto">
-          <SuperAdminDashboard/>
+          <AttendanceManagement/>
         </main>
       </div>
 
@@ -87,4 +82,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Attendance;

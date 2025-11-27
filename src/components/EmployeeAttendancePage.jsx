@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react';
-import { 
-  Calendar, 
-  CheckCircle, 
-  Clock, 
-  Download, 
-  TrendingUp, 
-  LogIn, 
-  LogOut, 
-  Coffee,
-  UserCheck,
-  Fingerprint,
+import {
+  Calendar,
+  CheckCircle,
+  Clock,
+  LogIn,
+  LogOut,
   Calculator,
-  AlertTriangle,
   Scale,
   Check,
   X,
@@ -19,8 +13,48 @@ import {
   Cigarette,
   ToiletIcon,
   Calendar1,
-  Utensils
+  Utensils,
+  Users,
+  AlertCircle,
+  BarChart3,
+  PieChart,
+  Download,
+  Filter,
+  Plus,
+  Search,
+  MoreVertical,
+  Eye,
+  Edit3,
+  Trash2,
+  ChevronDown,
+  Settings,
+  UserCheck,
+  UserX,
+  Send,
+  Mail,
+  Bell,
+  Shield,
+  Zap,
+  Crown,
+  Sun,
+  Moon,
+  ArrowLeft,
+  ArrowRight,
+  User,
+  Target,
+  Grid,
+  List,
+  MessageCircle,
+  FileText,
+  Activity,
+  Wifi,
+  Sparkle,
+  RotateCcw,
+  Building,
+  ChevronUp,
+  ArcElement
 } from 'lucide-react';
+import TopNavMenu from './TopNavMenu';
 
 // Custom hook for attendance management
 export const useAttendance = () => {
@@ -701,378 +735,422 @@ export function EmployeeAttendancePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Employee Attendance</h1>
-          </div>
-          <div className="text-right">
-            <div className="text-lg font-semibold text-gray-900">{currentTime.toLocaleDateString()}</div>
-            <div className="text-sm text-gray-600">{currentTime.toLocaleTimeString()}</div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 relative overflow-hidden">
+      {/* Top Navigation Menu */}
+      <TopNavMenu activeItem="Employees" setActiveItem={() => {}} isSidebarCollapsed={false} />
+
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-sky-100 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-pulse"></div>
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-        {/* Column 1 - Break Management */}
-        <div className="space-y-6">
-          {/* Break Management */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Break Management</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {breakTypes.map((breakType) => {
-                const breakInfo = breakData[breakType.id];
-                const currentDuration = getCurrentBreakDuration(breakType.id);
-                const isExceeding = currentDuration > breakType.limit;
+      <div className="relative z-10 p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Employee Attendance Management</h1>
+              <p className="text-gray-600">Track your attendance, breaks, and working hours</p>
+            </div>
+            <div className="text-right">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Clock className="h-4 w-4" />
+                {currentTime.toLocaleTimeString()}
+              </div>
+              <div className="text-xs text-gray-500">
+                {currentTime.toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600">Today Status</h3>
+              <Clock className="h-5 w-5 text-blue-500" />
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{getTodayStatus().status.toUpperCase()}</div>
+            <p className="text-sm text-blue-600 mt-1 flex items-center">
+              <LogIn className="h-4 w-4 mr-1" />
+              {getTodayStatus().checkIn}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600">Present Days</h3>
+              <CheckCircle className="h-5 w-5 text-green-500" />
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{stats.present}</div>
+            <p className="text-sm text-green-600 mt-1 flex items-center">
+              <Users className="h-4 w-4 mr-1" />
+              {stats.attendancePercentage}% rate
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600">Attendance Rate</h3>
+              <PieChart className="h-5 w-5 text-blue-500" />
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{stats.attendancePercentage}%</div>
+            <p className="text-sm text-blue-600 mt-1 flex items-center">
+              <BarChart3 className="h-4 w-4 mr-1" />
+              Overall this month
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600">Late Days</h3>
+              <Clock className="h-5 w-5 text-red-500" />
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{stats.late}</div>
+            <p className="text-sm text-red-600 mt-1 flex items-center">
+              <AlertCircle className="h-4 w-4 mr-1" />
+              Late arrivals
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600">Working Hours</h3>
+              <Calculator className="h-5 w-5 text-purple-500" />
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{formatDuration(workingHoursSummary.netWorkingTime)}</div>
+            <p className="text-sm text-purple-600 mt-1 flex items-center">
+              <Activity className="h-4 w-4 mr-1" />
+              Today's total
+            </p>
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Check In/Out & Working Hours */}
+          <div className="space-y-6">
+            {/* Check In/Out */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Attendance</h2>
+              <div className="space-y-4">
+                <button 
+                  onClick={handleSystemCheckInWrapper}
+                  disabled={!canCheckIn()}
+                  className={`w-full flex items-center justify-center p-4 rounded-xl border transition duration-300 ${
+                    canCheckIn() 
+                      ? 'bg-green-50 border-green-200 hover:border-green-400 text-green-700' 
+                      : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <LogIn className="h-5 w-5 mr-2" />
+                  <span className="font-medium">Check In</span>
+                </button>
                 
-                return (
-                  <div key={breakType.id} className="flex flex-col space-y-2">
-                    <button 
-                      onClick={() => handleBreakStart(breakType.id)}
-                      disabled={breakInfo.active}
-                      className={`flex flex-col items-center justify-center p-3 rounded-xl border transition duration-300 ${
-                        breakInfo.active
-                          ? `${breakType.color} text-white border-transparent`
-                          : `bg-gray-50 border-gray-200 text-gray-700 hover:border-gray-400`
-                      }`}
-                    >
-                      <breakType.icon className="h-5 w-5 mb-1" />
-                      <span className="text-xs font-medium">
-                        {breakInfo.active ? 'Active' : breakType.name}
-                      </span>
-                      <span className="text-xs opacity-75 mt-1">
-                        {breakInfo.active ? 
-                          `${Math.round(currentDuration)}m / ${breakType.limit}m` : 
-                          `${breakType.limit}m`
-                        }
-                      </span>
-                      {isExceeding && (
-                        <span className="text-xs text-red-200 mt-1">EXCEEDED!</span>
-                      )}
-                    </button>
-                    
-                    {breakInfo.active && (
-                      <button 
-                        onClick={() => handleManualBreakEnd(breakType.id)}
-                        className="flex items-center justify-center p-2 rounded-xl border border-gray-200 hover:border-gray-400 text-gray-700 bg-gray-50 transition duration-300 group text-xs"
-                      >
-                        <CheckCircle className="h-3 w-3 mr-1" />
-                        End Break
-                      </button>
-                    )}
+                <button 
+                  onClick={handleSystemCheckOutWrapper}
+                  disabled={!canCheckOut()}
+                  className={`w-full flex items-center justify-center p-4 rounded-xl border transition duration-300 ${
+                    canCheckOut() 
+                      ? 'bg-blue-50 border-blue-200 hover:border-blue-400 text-blue-700' 
+                      : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <LogOut className="h-5 w-5 mr-2" />
+                  <span className="font-medium">Check Out</span>
+                </button>
+              </div>
+
+              {systemAttendance.checkedIn && (
+                <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-blue-700 font-medium">Current Session:</span>
+                    <span className="text-blue-900 font-bold">
+                      {formatDuration(systemAttendance.totalWorkingTime)}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-
-            {/* Break Summary */}
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <h4 className="text-sm font-medium text-gray-900 mb-2">Today's Breaks</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Total Break Time:</span>
-                  <span className="font-medium">{formatDuration(breakSummary.totalDuration)}</span>
-                </div>
-                {breakSummary.exceededDuration > 0 && (
-                  <div className="flex justify-between text-red-600">
-                    <span>Exceeded Time:</span>
-                    <span className="font-medium">+{formatDuration(breakSummary.exceededDuration)}</span>
+                  <div className="text-xs text-blue-600 mt-1">
+                    {systemAttendance.isOnBreak ? '⏸️ Break in progress' : '⏱️ Working...'}
                   </div>
-                )}
-                <div className="flex justify-between text-blue-600">
-                  <span>Active Breaks:</span>
-                  <span className="font-medium">
-                    {breakTypes.filter(breakType => breakData[breakType.id].active).length}
-                  </span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Rest of the columns remain the same */}
-        {/* Column 2 - Overtime Debt */}
-        <div className="space-y-6">
-          {/* Overtime Debt */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Scale className="h-5 w-5 text-amber-600" />
-              Overtime Debt
-            </h2>
-            
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-                <div className="text-sm font-medium text-red-900 mb-1">Total Debt</div>
-                <div className="text-xl font-bold text-red-900">
-                  {formatDuration(overtimeDebt.totalDebt)}
-                </div>
-              </div>
-
-              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                <div className="text-sm font-medium text-green-900 mb-1">Worked</div>
-                <div className="text-xl font-bold text-green-900">
-                  {formatDuration(overtimeDebt.workedOvertime)}
-                </div>
-              </div>
-
-              <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                <div className="text-sm font-medium text-purple-900 mb-1">Net Balance</div>
-                <div className="text-xl font-bold text-purple-900">
-                  {formatDuration(overtimeDebt.netDebt)}
-                </div>
-              </div>
-
-              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                <div className="text-sm font-medium text-blue-900 mb-1">Today's Need</div>
-                <div className="text-xl font-bold text-blue-900">
-                  {formatDuration(workingHoursSummary.overtimeRequired)}
-                </div>
-              </div>
-            </div>
-
-            {/* Overtime Actions */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-gray-900 mb-2">Record Overtime Work</h4>
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => handleOvertimeWork(30)}
-                  className="flex-1 px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition"
-                >
-                  +30m
-                </button>
-                <button 
-                  onClick={() => handleOvertimeWork(60)}
-                  className="flex-1 px-3 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
-                >
-                  +60m
-                </button>
-                <button 
-                  onClick={() => {
-                    const custom = prompt('Enter minutes:');
-                    if (custom) handleOvertimeWork(parseInt(custom));
-                  }}
-                  className="flex-1 px-3 py-2 bg-green-700 text-white text-sm rounded-lg hover:bg-green-800 transition"
-                >
-                  Custom
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 - Stats & Debt Breakdown */}
-        <div className="space-y-6">
-          {/* Quick Stats */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Stats</h2>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Attendance Rate:</span>
-                <span className="font-medium text-blue-600">{stats.attendancePercentage}%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Present Days:</span>
-                <span className="font-medium text-green-600">{stats.present}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Late/Absent:</span>
-                <span className="font-medium text-red-600">{stats.absent + stats.late}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Working Days:</span>
-                <span className="font-medium text-gray-900">{stats.workingDays}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Debt Breakdown */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Debt Breakdown</h2>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-red-600">Break Exceedance:</span>
-                <span className="font-medium">{formatDuration(overtimeDebt.breakOvertime)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-orange-600">Late Arrivals:</span>
-                <span className="font-medium">{formatDuration(overtimeDebt.lateOvertime)}</span>
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            {overtimeDebt.history.length > 0 && (
-              <div className="mt-4">
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Recent Activity</h4>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {overtimeDebt.history.slice(-3).reverse().map((event, index) => (
-                    <div key={index} className="flex justify-between items-center text-xs bg-gray-50 p-2 rounded">
-                      <div className="text-gray-600 truncate">{event.reason}</div>
-                      <div className="font-medium text-amber-700">+{Math.round(event.minutes)}m</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Column 4 - Working Hours & Check In/Out */}
-        <div className="space-y-6">
-          {/* Check In/Out */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Attendance</h2>
-            <div className="space-y-4">
-              <button 
-                onClick={handleSystemCheckInWrapper}
-                disabled={!canCheckIn()}
-                className={`w-full flex items-center justify-center p-4 rounded-xl border transition duration-300 ${
-                  canCheckIn() 
-                    ? 'bg-green-50 border-green-200 hover:border-green-400 text-green-700' 
-                    : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                <LogIn className="h-5 w-5 mr-2" />
-                <span className="font-medium">Check In</span>
-              </button>
-              
-              <button 
-                onClick={handleSystemCheckOutWrapper}
-                disabled={!canCheckOut()}
-                className={`w-full flex items-center justify-center p-4 rounded-xl border transition duration-300 ${
-                  canCheckOut() 
-                    ? 'bg-blue-50 border-blue-200 hover:border-blue-400 text-blue-700' 
-                    : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                <LogOut className="h-5 w-5 mr-2" />
-                <span className="font-medium">Check Out</span>
-              </button>
-            </div>
-
-            {/* Current Session */}
-            {systemAttendance.checkedIn && (
-              <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-blue-700 font-medium">Current Session:</span>
-                  <span className="text-blue-900 font-bold">
-                    {formatDuration(systemAttendance.totalWorkingTime)}
-                  </span>
-                </div>
-                <div className="text-xs text-blue-600 mt-1">
-                  {systemAttendance.isOnBreak ? '⏸️ Break in progress' : '⏱️ Working...'}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Working Hours Summary */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-blue-500" />
-              Working Hours
-            </h2>
-            
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Gross Time:</span>
-                <span className="font-medium">{formatDuration(workingHoursSummary.grossWorkingTime)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Break Time:</span>
-                <span className="font-medium text-orange-600">- {formatDuration(workingHoursSummary.totalBreakTime)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Exceeded Breaks:</span>
-                <span className="font-medium text-red-600">+ {formatDuration(workingHoursSummary.exceededBreakTime)}</span>
-              </div>
-              <div className="flex justify-between items-center pt-3 border-t border-gray-200">
-                <span className="font-medium text-gray-900">Net Working Time:</span>
-                <span className="font-bold text-green-600">{formatDuration(workingHoursSummary.netWorkingTime)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Efficiency:</span>
-                <span className="font-medium text-blue-600">{workingHoursSummary.efficiency}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Attendance History Table */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Attendance History</h2>
-        <p className="text-gray-600 mb-4">Dates when employee came to work</p>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Day</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Check In</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Check Out</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Hours</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attendanceHistory.map((day, index) => {
-                const statusInfo = getStatusInfo(day.status);
-                const StatusIcon = statusInfo.icon;
-                
-                return (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4 text-sm text-gray-900">
-                      {formatDate(day.date)}
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-600">
-                      {new Date(day.date).toLocaleDateString('en-US', { weekday: 'long' })}
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${statusInfo.color}`}>
-                        <StatusIcon className="h-3 w-3" />
-                        {statusInfo.text}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-900 font-medium">
-                      {day.checkIn}
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-900 font-medium">
-                      {day.checkOut}
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-900 font-bold">
-                      {day.hours}h
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-600">
-                      {day.remarks}
-                    </td>
-                  </tr>
-                );
-              })}
-              
-              {attendanceHistory.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="py-8 px-4 text-center text-gray-500">
-                    No attendance records found
-                  </td>
-                </tr>
               )}
-            </tbody>
-          </table>
+            </div>
+
+            {/* Working Hours Summary */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Calculator className="h-5 w-5 text-blue-500" />
+                Working Hours
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Gross Time:</span>
+                  <span className="font-medium">{formatDuration(workingHoursSummary.grossWorkingTime)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Break Time:</span>
+                  <span className="font-medium text-orange-600">- {formatDuration(workingHoursSummary.totalBreakTime)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Exceeded Breaks:</span>
+                  <span className="font-medium text-red-600">+ {formatDuration(workingHoursSummary.exceededBreakTime)}</span>
+                </div>
+                <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+                  <span className="font-medium text-gray-900">Net Working Time:</span>
+                  <span className="font-bold text-green-600">{formatDuration(workingHoursSummary.netWorkingTime)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Efficiency:</span>
+                  <span className="font-medium text-blue-600">{workingHoursSummary.efficiency}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Middle Column - Break Management */}
+          <div className="space-y-6">
+            {/* Break Management */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Break Management</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {breakTypes.map((breakType) => {
+                  const breakInfo = breakData[breakType.id];
+                  const currentDuration = getCurrentBreakDuration(breakType.id);
+                  const isExceeding = currentDuration > breakType.limit;
+                  
+                  return (
+                    <div key={breakType.id} className="flex flex-col space-y-2">
+                      <button 
+                        onClick={() => handleBreakStart(breakType.id)}
+                        disabled={breakInfo.active}
+                        className={`flex flex-col items-center justify-center p-3 rounded-xl border transition duration-300 ${
+                          breakInfo.active
+                            ? `${breakType.color} text-white border-transparent`
+                            : `bg-gray-50 border-gray-200 text-gray-700 hover:border-gray-400`
+                        }`}
+                      >
+                        <breakType.icon className="h-5 w-5 mb-1" />
+                        <span className="text-xs font-medium">
+                          {breakInfo.active ? 'Active' : breakType.name}
+                        </span>
+                        <span className="text-xs opacity-75 mt-1">
+                          {breakInfo.active ? 
+                            `${Math.round(currentDuration)}m / ${breakType.limit}m` : 
+                            `${breakType.limit}m`
+                          }
+                        </span>
+                        {isExceeding && (
+                          <span className="text-xs text-red-200 mt-1">EXCEEDED!</span>
+                        )}
+                      </button>
+                      
+                      {breakInfo.active && (
+                        <button 
+                          onClick={() => handleManualBreakEnd(breakType.id)}
+                          className="flex items-center justify-center p-2 rounded-xl border border-gray-200 hover:border-gray-400 text-gray-700 bg-gray-50 transition duration-300 text-xs"
+                        >
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          End Break
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Break Summary */}
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <h4 className="text-sm font-medium text-gray-900 mb-2">Today's Breaks</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Total Break Time:</span>
+                    <span className="font-medium">{formatDuration(breakSummary.totalDuration)}</span>
+                  </div>
+                  {breakSummary.exceededDuration > 0 && (
+                    <div className="flex justify-between text-red-600">
+                      <span>Exceeded Time:</span>
+                      <span className="font-medium">+{formatDuration(breakSummary.exceededDuration)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-blue-600">
+                    <span>Active Breaks:</span>
+                    <span className="font-medium">
+                      {breakTypes.filter(breakType => breakData[breakType.id].active).length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Stats</h2>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Attendance Rate:</span>
+                  <span className="font-medium text-blue-600">{stats.attendancePercentage}%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Present Days:</span>
+                  <span className="font-medium text-green-600">{stats.present}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Absent/Late:</span>
+                  <span className="font-medium text-red-600">{stats.absent + stats.late}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Working Days:</span>
+                  <span className="font-medium text-gray-900">{stats.workingDays}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Overtime Debt */}
+          <div className="space-y-6">
+            {/* Overtime Debt */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Scale className="h-5 w-5 text-amber-600" />
+                Overtime Debt
+              </h2>
+              
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                  <div className="text-sm font-medium text-red-900 mb-1">Total Debt</div>
+                  <div className="text-xl font-bold text-red-900">
+                    {formatDuration(overtimeDebt.totalDebt)}
+                  </div>
+                </div>
+
+                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                  <div className="text-sm font-medium text-green-900 mb-1">Worked</div>
+                  <div className="text-xl font-bold text-green-900">
+                    {formatDuration(overtimeDebt.workedOvertime)}
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                  <div className="text-sm font-medium text-purple-900 mb-1">Net Balance</div>
+                  <div className="text-xl font-bold text-purple-900">
+                    {formatDuration(overtimeDebt.netDebt)}
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                  <div className="text-sm font-medium text-blue-900 mb-1">Today's Need</div>
+                  <div className="text-xl font-bold text-blue-900">
+                    {formatDuration(workingHoursSummary.overtimeRequired)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Overtime Actions */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-gray-900 mb-2">Record Overtime Work</h4>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => handleOvertimeWork(30)}
+                    className="flex-1 px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition"
+                  >
+                    +30m
+                  </button>
+                  <button 
+                    onClick={() => handleOvertimeWork(60)}
+                    className="flex-1 px-3 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
+                  >
+                    +60m
+                  </button>
+                  <button 
+                    onClick={() => {
+                      const custom = prompt('Enter minutes:');
+                      if (custom) handleOvertimeWork(parseInt(custom));
+                    }}
+                    className="flex-1 px-3 py-2 bg-green-700 text-white text-sm rounded-lg hover:bg-green-800 transition"
+                  >
+                    Custom
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Debt Breakdown */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Debt Breakdown</h2>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-red-600">Break Exceedance:</span>
+                  <span className="font-medium">{formatDuration(overtimeDebt.breakOvertime)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-orange-600">Late Arrivals:</span>
+                  <span className="font-medium">{formatDuration(overtimeDebt.lateOvertime)}</span>
+                </div>
+              </div>
+
+              {overtimeDebt.history.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-sm font-medium text-gray-900 mb-2">Recent Activity</h4>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {overtimeDebt.history.slice(-3).reverse().map((event, index) => (
+                      <div key={index} className="flex justify-between items-center text-xs bg-gray-50 p-2 rounded">
+                        <div className="text-gray-600 truncate">{event.reason}</div>
+                        <div className="font-medium text-amber-700">+{Math.round(event.minutes)}m</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        
-        {/* Summary */}
-        <div className="mt-4 flex justify-between items-center text-sm text-gray-600">
-          <span>Total days present: {attendanceHistory.length}</span>
-          <span>Showing last 30 days</span>
+
+        {/* Attendance History Table */}
+        <div className="mt-8 bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Attendance History</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Date</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Status</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Check In</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Check Out</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Hours</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {attendanceHistory.slice(0, 10).map((day, index) => {
+                  const statusInfo = getStatusInfo(day.status);
+                  return (
+                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                      <td className="py-3 px-4 text-sm text-gray-900">{formatDate(day.date)}</td>
+                      <td className="py-3 px-4">
+                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${statusInfo.color}`}>
+                          {statusInfo.text}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-900">{day.checkIn}</td>
+                      <td className="py-3 px-4 text-sm text-gray-900">{day.checkOut}</td>
+                      <td className="py-3 px-4 text-sm font-medium text-gray-900">{day.hours}h</td>
+                      <td className="py-3 px-4 text-sm text-gray-600">{day.remarks}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-export default EmployeeAttendancePage;

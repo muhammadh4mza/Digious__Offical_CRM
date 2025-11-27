@@ -1,31 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
-import { 
-  Clock, Calendar, Users, CheckCircle, XCircle, Plus, 
-  Search, Filter, Download, MoreVertical, Eye, Edit, 
-  RefreshCw, TrendingUp, BarChart3, Coffee, LogIn, LogOut,
-  ChevronDown, ChevronUp, MapPin, Smartphone, Monitor,
-  FileText, Printer, Mail, UserCheck, AlertTriangle,
-  Play, Square, Pause, Circle, Camera, Video, Mic, 
-  Zap, Battery, Wifi, Cloud, Shield, Lock, Unlock,
-  Bell, MessageCircle, Phone, Map, Navigation,
-  PieChart, BarChart, LineChart, Target, Award,
-  Settings, RotateCw, Power, WifiOff, Bluetooth,
-  Heart, Activity, Thermometer, Gauge,
-  DownloadCloud, UploadCloud, Database, Server,
-  Smartphone as Mobile,
-  Laptop, Tablet, Watch, Headphones,
-  X, SlidersHorizontal,
-  TrendingUp as TrendingUpIcon,
-  TrendingDown as TrendingDownIcon,
-  Clock as ClockIcon,
-  Calendar as CalendarIcon,
-  UserCheck as UserCheckIcon,
-  XCircle as XCircleIcon,
-  Coffee as CoffeeIcon,
-  Heart as HeartIcon,
-  Umbrella,
-  Sun
+import {
+  Users, CheckCircle, XCircle, Plus,
+  Search, Filter, Download, MoreVertical, Eye, Edit,
+  RefreshCw,
+  PieChart, BarChart, LineChart,
+  X,
+  TrendingUp, TrendingDown, Clock, Calendar, UserCheck,
+  Coffee, Heart, Sun, Umbrella, LogIn, LogOut, Activity,
+  Smartphone, Circle, Map, Zap, AlertTriangle
 } from 'lucide-react';
+import TopNavMenu from './TopNavMenu';
 
 // Import Chart.js properly
 import Chart from 'chart.js/auto';
@@ -703,8 +687,8 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
             <div className={`flex items-center gap-1 text-xs ${
               trend > 0 ? 'text-emerald-200' : trend < 0 ? 'text-red-200' : 'text-gray-200'
             }`}>
-              {trend > 0 ? <TrendingUpIcon className="h-3 w-3" /> : 
-               trend < 0 ? <TrendingDownIcon className="h-3 w-3" /> : null}
+              {trend > 0 ? <TrendingUp className="h-3 w-3" /> : 
+               trend < 0 ? <TrendingDown className="h-3 w-3" /> : null}
               {trend !== 0 && `${Math.abs(trend)}%`}
             </div>
           )}
@@ -859,7 +843,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="bg-white/20 p-3 rounded-xl">
-              <ClockIcon className="h-6 w-6 text-white" />
+              <Clock className="h-6 w-6 text-white" />
             </div>
             <div>
               <p className="text-2xl font-bold">{analytics.totalHoursWorked.toFixed(1)}h</p>
@@ -879,28 +863,28 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
           title="Working Days" 
           value={analytics.totalWorkingDays} 
           subtitle="Total tracked" 
-          icon={CalendarIcon} 
+          icon={Calendar} 
           color="from-green-500 to-green-600"
         />
         <AnalyticsCard 
           title="Present Days" 
           value={analytics.totalPresentDays} 
           subtitle={`${analytics.attendanceRate.toFixed(1)}% rate`} 
-          icon={UserCheckIcon} 
+          icon={UserCheck} 
           color="from-emerald-500 to-emerald-600"
         />
         <AnalyticsCard 
           title="Absent Days" 
           value={analytics.totalAbsentDays} 
           subtitle="Total absence" 
-          icon={XCircleIcon} 
+          icon={XCircle} 
           color="from-rose-500 to-rose-600"
         />
         <AnalyticsCard 
           title="Late Days" 
           value={analytics.totalLateDays} 
           subtitle={`${analytics.punctualityRate.toFixed(1)}% punctual`} 
-          icon={ClockIcon} 
+          icon={Clock} 
           color="from-amber-500 to-amber-600"
         />
       </div>
@@ -913,28 +897,28 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
           title="Overtime Hours" 
           value={analytics.totalOvertime.toFixed(1)} 
           subtitle="Extra hours" 
-          icon={ClockIcon} 
+          icon={Clock} 
           color="from-blue-500 to-blue-600"
         />
         <AnalyticsCard 
           title="Productivity" 
           value={`${analytics.averageProductivity.toFixed(1)}%`} 
           subtitle="Avg score" 
-          icon={TrendingUpIcon} 
+          icon={TrendingUp} 
           color="from-green-500 to-green-600"
         />
         <AnalyticsCard 
           title="Inactivity" 
           value={analytics.totalInactivity} 
           subtitle="Low activity days" 
-          icon={CoffeeIcon} 
+          icon={Coffee} 
           color="from-gray-500 to-gray-600"
         />
         <AnalyticsCard 
           title="Sick Leaves" 
           value={analytics.sickLeaves} 
           subtitle="Medical leave" 
-          icon={HeartIcon} 
+          icon={Heart} 
           color="from-cyan-500 to-cyan-600"
         />
       </div>
@@ -961,7 +945,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
           title="Total Leaves" 
           value={analytics.casualLeaves + analytics.annualLeaves + analytics.sickLeaves} 
           subtitle="All types" 
-          icon={CalendarIcon} 
+          icon={Calendar} 
           color="from-purple-500 to-purple-600"
         />
       </div>
@@ -1776,8 +1760,12 @@ export function AdvancedAttendanceManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 p-8">
-      <div className="space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      {/* Top Navigation Menu */}
+      <TopNavMenu activeItem="dashboard" setActiveItem={() => {}} isSidebarCollapsed={false} />
+
+      <div className="p-8">
+        <div className="space-y-8">
         {/* Enhanced Header */}
         <div className="flex justify-between items-start">
           <div>
@@ -2035,6 +2023,7 @@ export function AdvancedAttendanceManagement() {
             attendanceData={attendanceData}
           />
         )}
+        </div>
       </div>
     </div>
   );
