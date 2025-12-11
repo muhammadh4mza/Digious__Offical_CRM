@@ -8,7 +8,6 @@ import {
   Building, Grid, List, X, MessageCircle, UserCheck, UserX,
   Utensils,Sparkle, Cigarette, Wifi, Activity
 } from 'lucide-react';
-import TopNavMenu from './TopNavMenu';
 
 // Import Chart.js
 import {
@@ -240,7 +239,7 @@ const BreakDetailsModal = ({ isOpen, onClose, breaks, date, employeeName }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="flex items-center justify-between p-6 border-b border-slate-200 bg-white">
           <div>
             <h2 className="text-xl font-bold text-gray-900">Break Details</h2>
             <p className="text-gray-600">
@@ -263,7 +262,7 @@ const BreakDetailsModal = ({ isOpen, onClose, breaks, date, employeeName }) => {
         {/* Break Statistics */}
         <div className="p-6 bg-white border-b border-gray-200">
           <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div className="text-center p-4 bg-slate-50 rounded-xl border border-slate-200">
               <div className="text-2xl font-bold text-blue-600">{breakStats.totalBreaks}</div>
               <div className="text-sm text-blue-800 font-medium">Total Breaks</div>
             </div>
@@ -356,7 +355,7 @@ const BreakDetailsModal = ({ isOpen, onClose, breaks, date, employeeName }) => {
           </div>
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition duration-300"
+            className="px-6 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:shadow-md transition duration-300"
           >
             Close
           </button>
@@ -1556,7 +1555,7 @@ const EmployeeDetailView = ({
               <Download className="h-4 w-4 mr-2" />
               Export
             </button>
-            <button className="flex items-center px-4 py-2 bg-[#349dff] text-white rounded-xl hover:bg-[#2980db] transition duration-300">
+            <button className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:shadow-md transition duration-300">
               <Send className="h-4 w-4 mr-2" />
               Send Report
             </button>
@@ -2038,18 +2037,18 @@ const EmployeeListView = ({
             <Filter className="h-4 w-4 mr-2" />
             Filter
           </button>
-          <button 
+          {/* <button 
             onClick={onAddEmployee}
-            className="flex items-center px-4 py-2 bg-[#349dff] text-white rounded-xl hover:bg-[#2980db] transition duration-300"
+            className="flex items-center px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:shadow-md transition duration-300"
           >
             <UserPlus className="h-4 w-4 mr-2" />
             Add Employee
-          </button>
+          </button> */}
         </div>
       </div>
 
       {selectedEmployees.length > 0 && (
-        <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl border border-blue-200 mb-4">
+        <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 mb-4">
           <div className="flex items-center space-x-4">
             <span className="text-sm font-medium text-blue-800">
               {selectedEmployees.length} employees selected
@@ -2060,7 +2059,7 @@ const EmployeeListView = ({
               <option value="export-data">Export Data</option>
               <option value="send-reminder">Send Reminder</option>
             </select>
-            <button className="px-4 py-1 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">
+            <button className="px-4 py-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg text-sm hover:shadow-md">
               Apply
             </button>
           </div>
@@ -3849,8 +3848,6 @@ export function HrAttendancePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 relative overflow-hidden">
-      {/* Top Navigation Menu */}
-      <TopNavMenu activeItem="HR" setActiveItem={() => {}} isSidebarCollapsed={false} />
 
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
@@ -3902,7 +3899,7 @@ export function HrAttendancePage() {
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition duration-300 ${
                     activeTab === tab
-                      ? 'bg-[#349dff] text-white shadow-md'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >

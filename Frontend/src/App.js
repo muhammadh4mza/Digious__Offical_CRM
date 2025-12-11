@@ -1,70 +1,197 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Login & Signup
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
-import Dashboard from './pages/Dashboard';
-import Attendance from './pages/Attendance';
-import HrAttendance from './pages/HrAttendance';
-import SuperAttendance from './pages/SuperAttendance';
-import SuperDashboard from './pages/SuperDashboard';
-import ActivityTracker from './pages/ActivityTracker';
-import EmployeeAttendance from './pages/EmployeeAtt';
-import Employees from './pages/Employee';
-import EmployeeDetails from './pages/EmployeeDetails';
-import ApplicationandMemos from './pages/ApplicationandMemos';
-import ApplicationandMemoEmployees from './pages/ApplicationandMemoEmployees';
+import UnauthorizedPage from './pages/UnauthorizedPage';
 
+// Admin Pages
+import Dashboard from './pages/SuperAdmin/Dashboard';
+import Attendance from './pages/SuperAdmin/Attendance';
+import ActivityTracker from './pages/SuperAdmin/ActivityTracker';
+import Employees from './pages/SuperAdmin/Employee';
+import ApplicationandMemos from './pages/SuperAdmin/ApplicationandMemos';
+import AdminApplicationsMemos from './pages/SuperAdmin/ApplicationsMemos';
+import AdminSalesManagement from './pages/SuperAdmin/AdminSalesManagement';
+
+// HR Pages
+import HRDashboard from './pages/HR/HRDashboard';
+import HrAttendance from './pages/HR/HrAttendance';
+import EmployeeManagement from './pages/HR/EmployeeManagement';
+import ApplicationsMemos from './pages/HR/ApplicationsMemos';
+
+// Employee Pages
+import EmployeeDashboard from './pages/Employee/EmployeeDashboard';
+import EmployeeAttendance from './pages/Employees/EmployeeAtt';
+import EmployeeDetails from './pages/Employees/EmployeeDetails';
+import ApplicationandMemoEmployees from './pages/Employees/ApplicationandMemoEmployees';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          
-          {/* Protected routes - will add authentication later */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/superdashboard" element={<SuperDashboard />} />
-          <Route path="/hrattendance" element={<HrAttendance />} />
-          <Route path="/superAttendance" element={<SuperAttendance />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/activity-tracker" element={<ActivityTracker />} />
-          <Route path="/testdashboard" element={<ActivityTracker />} /> 
-          <Route path="/employeeattendance" element={<EmployeeAttendance />} /> 
-          <Route path="/employees" element={<Employees />} /> 
-          <Route path="/employeedetails" element={<EmployeeDetails />} />
-          <Route path="/application-memos" element={<ApplicationandMemos />} />
-          <Route path="/applications-memos" element={<ApplicationandMemoEmployees />} />
-          
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/login" />} />
-          
-          {/* 404 page */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Routes>
+            {/* Public routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            
+            {/* Unauthorized page */}
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            
+            {/* Admin Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/sales"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminSalesManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/attendance"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <Attendance />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/employees"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <Employees />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/applications"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminApplicationsMemos />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/activity"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <ActivityTracker />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* HR Routes */}
+            <Route
+              path="/hr/dashboard"
+              element={
+                <ProtectedRoute requiredRole="hr">
+                  <HRDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hr/employee-management"
+              element={
+                <ProtectedRoute requiredRole="hr">
+                  <EmployeeManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hr/attendance"
+              element={
+                <ProtectedRoute requiredRole="hr">
+                  <HrAttendance />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hr/applications"
+              element={
+                <ProtectedRoute requiredRole="hr">
+                  <ApplicationsMemos />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hr/employees"
+              element={
+                <ProtectedRoute requiredRole="hr">
+                  <Employees />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Employee Routes */}
+            <Route
+              path="/employee/dashboard"
+              element={
+                <ProtectedRoute requiredRole="employee">
+                  <EmployeeDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employee/attendance"
+              element={
+                <ProtectedRoute requiredRole="employee">
+                  <EmployeeAttendance />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employee/profile"
+              element={
+                <ProtectedRoute requiredRole="employee">
+                  <EmployeeDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employee/applications"
+              element={
+                <ProtectedRoute requiredRole="employee">
+                  <ApplicationandMemoEmployees />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Legacy routes (for backward compatibility) */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/hrattendance" element={<HrAttendance />} />
+            <Route path="/activity-tracker" element={<ActivityTracker />} />
+            <Route path="/testdashboard" element={<ActivityTracker />} /> 
+            <Route path="/employeeattendance" element={<EmployeeAttendance />} /> 
+            <Route path="/employees" element={<Employees />} /> 
+            <Route path="/employeedetails" element={<EmployeeDetails />} />
+            <Route path="/application-memos" element={<ApplicationandMemos />} />
+            <Route path="/applications-memos" element={<ApplicationandMemoEmployees />} />
+            <Route path="/sales" element={<AdminSalesManagement />} />
+            
+            {/* Default redirect */}
+            <Route path="/" element={<Navigate to="/login" />} />
+            
+            {/* 404 page */}
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
-
-// Simple 404 page
-const NotFoundPage = () => (
-  <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
-    <div className="text-center">
-      <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-      <p className="text-xl text-gray-600 mb-8">Page not found</p>
-      <a 
-        href="/login" 
-        className="inline-flex items-center px-6 py-3 bg-[#349dff] text-white font-medium rounded-xl hover:bg-[#1e87e6] transition duration-200"
-      >
-        Go to Login
-      </a>
-    </div>
-  </div>
-);
 
 export default App;

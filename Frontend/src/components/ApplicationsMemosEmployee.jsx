@@ -21,7 +21,6 @@ import {
   EyeOff, Eye as EyeIcon, Fingerprint,
   ShieldCheck, ShieldAlert, ShieldOff
 } from 'lucide-react';
-import TopNavMenu from '../components/TopNavMenu';
 
 const ApplicationsMemosEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -29,7 +28,7 @@ const ApplicationsMemosEmployee = () => {
     name: 'John Smith',
     email: 'john.smith@company.com',
     phone: '+1 (555) 123-4567',
-    department: 'Engineering',
+    department: 'Production',
     position: 'Senior Developer',
     employeeId: 'EMP-00124',
     joinDate: '2022-03-15',
@@ -150,12 +149,12 @@ const ApplicationsMemosEmployee = () => {
         id: 2,
         memoNumber: 'MEMO-2024-002',
         title: 'Q1 Team Meeting Invitation',
-        from: 'Engineering Manager',
+        from: 'Production Manager',
         date: '2024-01-14',
         priority: 'medium',
         category: 'Meeting',
         status: 'read',
-        summary: 'Invitation to Q1 engineering team meeting. Please review agenda.',
+        summary: 'Invitation to Q1 Production team meeting. Please review agenda.',
         attachments: 1,
         actionsRequired: false,
         deadline: '2024-01-20'
@@ -224,8 +223,6 @@ const ApplicationsMemosEmployee = () => {
   return (
     
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 ">
-      {/* Top Navigation Menu */}
-      <TopNavMenu activeItem="Employees" setActiveItem={() => {}} isSidebarCollapsed={false} />
 
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>

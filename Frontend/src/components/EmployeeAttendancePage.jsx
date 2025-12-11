@@ -56,7 +56,6 @@ import {
   ShieldUser,
   Table
 } from 'lucide-react';
-import TopNavMenu from './TopNavMenu';
 
 // Custom hook for attendance management
 export const useAttendance = () => {
@@ -1177,8 +1176,6 @@ export function EmployeeAttendancePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 relative overflow-hidden">
-      {/* Top Navigation Menu */}
-      <TopNavMenu activeItem="Employees" setActiveItem={() => {}} isSidebarCollapsed={false} />
 
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>

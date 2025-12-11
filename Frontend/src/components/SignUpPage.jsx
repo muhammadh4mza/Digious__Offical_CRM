@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const SignUpPage = () => {
+  const { login } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -129,17 +131,37 @@ const SignUpPage = () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Store user data
-        localStorage.setItem('user', JSON.stringify({
+        // Create user object
+        const newUser = {
           ...formData,
           id: Date.now(),
           createdAt: new Date().toISOString(),
           avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.firstName + ' ' + formData.lastName)}&background=349dff&color=fff`
-        }));
+        };
         
-        // Success animation delay
+        // Login through AuthContext with the selected role
+        login({
+          email: formData.email,
+          name: `${formData.firstName} ${formData.lastName}`,
+          role: formData.userRole,
+          ...newUser
+        }, formData.userRole);
+        
+        // Success animation delay and navigate based on role
         setTimeout(() => {
-          navigate('/dashboard');
+          switch(formData.userRole) {
+            case 'admin':
+              navigate('/admin/dashboard');
+              break;
+            case 'hr':
+              navigate('/hr/dashboard');
+              break;
+            case 'employee':
+              navigate('/employee/dashboard');
+              break;
+            default:
+              navigate('/login');
+          }
         }, 500);
         
       } catch (error) {
@@ -162,7 +184,7 @@ const SignUpPage = () => {
   ];
 
   const departments = [
-    'Engineering & Development',
+    'Production & Development',
     'Product Design',
     'Digital Marketing',
     'Sales & Business Development',

@@ -12,7 +12,6 @@ import {
   Save, AlertCircle, Pencil, PlusCircle, MinusCircle,
   Check, ChevronDown, ChevronRight, Star
 } from 'lucide-react';
-import TopNavMenu from './TopNavMenu';
 
 const EmployeePersonalProfile = ({ employeeId, onBack }) => {
   const [employee, setEmployee] = useState(null);
@@ -279,7 +278,6 @@ const EmployeePersonalProfile = ({ employeeId, onBack }) => {
     return (
         
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 flex items-center justify-center">
-         <TopNavMenu />
         <div className="text-center">
           <User className="h-16 w-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">Employee not found</h3>

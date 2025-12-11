@@ -50,7 +50,7 @@ const ApplicationsMemosDashboard = () => {
         submissionDate: '2024-01-15',
         status: 'pending',
         priority: 'medium',
-        department: 'Engineering',
+        department: 'Production',
         requiredDocuments: 3,
         submittedDocuments: 2,
         notes: 'Requesting 5 days of annual leave',
@@ -798,7 +798,7 @@ const NewApplicationModal = ({ onClose, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-xl"
               >
                 <option value="">Select Department</option>
-                <option value="Engineering">Engineering</option>
+                <option value="Production">Production</option>
                 <option value="Sales">Sales</option>
                 <option value="Marketing">Marketing</option>
                 <option value="HR">HR</option>

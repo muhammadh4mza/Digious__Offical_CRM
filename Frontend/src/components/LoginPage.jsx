@@ -1,8 +1,10 @@
 // components/LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -54,14 +56,42 @@ const LoginPage = () => {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Simple demo authentication
-        if (formData.email === 'demo@digious.com' && formData.password === 'demo123') {
-          // Store basic user info in localStorage for demo
-          localStorage.setItem('user', JSON.stringify({
+        // Demo authentication - you can customize these credentials
+        const validCredentials = [
+          { email: 'admin@digious.com', password: 'admin123', role: 'admin' },
+          { email: 'hr@digious.com', password: 'hr123', role: 'hr' },
+          { email: 'employee@digious.com', password: 'emp123', role: 'employee' }
+        ];
+
+        const user = validCredentials.find(
+          cred => cred.email === formData.email && cred.password === formData.password
+        );
+
+        if (user) {
+          // Use the role from matched credentials or use the selected role
+          const userRole = user.role;
+          
+          // Login through AuthContext
+          login({
             email: formData.email,
-            name: 'Demo User'
-          }));
-          navigate('/dashboard');
+            name: formData.email.split('@')[0],
+            role: userRole
+          }, userRole);
+          
+          // Navigate based on role
+          switch(userRole) {
+            case 'admin':
+              navigate('/admin/dashboard');
+              break;
+            case 'hr':
+              navigate('/hr/dashboard');
+              break;
+            case 'employee':
+              navigate('/employee/dashboard');
+              break;
+            default:
+              navigate('/');
+          }
         } else {
           setErrors({ submit: 'Invalid email or password. Please try again.' });
         }
@@ -205,13 +235,14 @@ const LoginPage = () => {
             </div>
 
             {/* Demo Credentials */}
-            {/* <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <h4 className="text-sm font-semibold text-blue-900 mb-2">Demo Credentials:</h4>
               <div className="text-xs text-blue-700 space-y-1">
-                <p><span className="font-medium">Email:</span> demo@digious.com</p>
-                <p><span className="font-medium">Password:</span> demo123</p>
+                <p><span className="font-medium">Admin:</span> admin@digious.com / admin123</p>
+                <p><span className="font-medium">HR:</span> hr@digious.com / hr123</p>
+                <p><span className="font-medium">Employee:</span> employee@digious.com / emp123</p>
               </div>
-            </div> */}
+            </div>
           </form>
 
           {/* Sign Up Link */}

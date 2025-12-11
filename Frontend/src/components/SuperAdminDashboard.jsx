@@ -97,7 +97,7 @@ export function SuperAdminDashboard() {
       id: 3, 
       name: 'Mike Chen', 
       email: 'mike@company.com', 
-      department: 'Engineering', 
+      department: 'Production', 
       position: 'Senior Developer', 
       status: 'active',
       joinDate: '2023-03-10',
@@ -513,11 +513,11 @@ export function SuperAdminDashboard() {
         <div className="mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
-              <p className="text-gray-600">Complete system management and monitoring</p>
+              <h1 className="text-2xl font-bold text-slate-800">{getPageTitle()}</h1>
+              <p className="text-slate-600">Complete system management and monitoring</p>
             </div>
             <div className="text-right">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Clock className="h-4 w-4" />
                 {currentTime.toLocaleTimeString()}
               </div>
@@ -674,7 +674,7 @@ function DashboardContent({ data, navigate }) {
         {/* Applications Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Recent Applications</h3>
+            <h3 className="text-lg font-semibold text-slate-800">Recent Applications</h3>
             <button 
               onClick={() => navigate('/application-memos')}
               className="text-blue-600 hover:text-blue-800 text-sm font-medium"
@@ -687,12 +687,12 @@ function DashboardContent({ data, navigate }) {
               <div key={app.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-900">{app.type}</span>
+                    <span className="text-sm font-medium text-slate-800">{app.type}</span>
                     <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(app.status)}`}>
                       {app.status}
                     </span>
                   </div>
-                  <div className="flex justify-between text-xs text-gray-600">
+                  <div className="flex justify-between text-xs text-slate-600">
                     <span>{app.employee}</span>
                     <span>{app.date}</span>
                   </div>
@@ -702,8 +702,8 @@ function DashboardContent({ data, navigate }) {
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Pending Applications</span>
-              <span className="font-semibold text-gray-900">2</span>
+              <span className="text-slate-600">Pending Applications</span>
+              <span className="font-semibold text-slate-800">2</span>
             </div>
           </div>
         </div>
@@ -711,7 +711,7 @@ function DashboardContent({ data, navigate }) {
         {/* Top Sales Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Top Sales Performers</h3>
+            <h3 className="text-lg font-semibold text-slate-800">Top Sales Performers</h3>
             <button 
               onClick={() => navigate('/sales')}
               className="text-blue-600 hover:text-blue-800 text-sm font-medium"
@@ -727,12 +727,12 @@ function DashboardContent({ data, navigate }) {
                     {index + 1}
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">{salesperson.name}</div>
-                    <div className="text-xs text-gray-600">{salesperson.department}</div>
+                    <div className="text-sm font-medium text-slate-800">{salesperson.name}</div>
+                    <div className="text-xs text-slate-600">{salesperson.department}</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-semibold text-gray-900">${(salesperson.revenue / 1000).toFixed(0)}K</div>
+                  <div className="text-sm font-semibold text-slate-800">${(salesperson.revenue / 1000).toFixed(0)}K</div>
                   <div className="text-xs text-green-600">{salesperson.growth}</div>
                 </div>
               </div>
@@ -740,8 +740,8 @@ function DashboardContent({ data, navigate }) {
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Total Team Revenue</span>
-              <span className="font-semibold text-gray-900">$387K</span>
+              <span className="text-slate-600">Total Team Revenue</span>
+              <span className="font-semibold text-slate-800">$387K</span>
             </div>
           </div>
         </div>
@@ -749,7 +749,7 @@ function DashboardContent({ data, navigate }) {
         {/* Ongoing Projects Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Ongoing Projects</h3>
+            <h3 className="text-lg font-semibold text-slate-800">Ongoing Projects</h3>
             <button 
               onClick={() => navigate('/projects')}
               className="text-blue-600 hover:text-blue-800 text-sm font-medium"
@@ -761,7 +761,7 @@ function DashboardContent({ data, navigate }) {
             {ongoingProjects.map((project) => (
               <div key={project.id} className="p-3 bg-gray-50 rounded-lg">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm font-medium text-gray-900">{project.name}</span>
+                  <span className="text-sm font-medium text-slate-800">{project.name}</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(project.status)}`}>
                     {project.status}
                   </span>
@@ -929,8 +929,8 @@ function EmployeesContent({
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Employee Management</h2>
-          <p className="text-gray-600">Manage your team members and their information</p>
+          <h2 className="text-xl font-bold text-slate-800">Employee Management</h2>
+          <p className="text-slate-600">Manage your team members and their information</p>
         </div>
         <button 
           onClick={onAddEmployee}
@@ -958,7 +958,7 @@ function EmployeesContent({
             <option>All Departments</option>
             <option>Sales</option>
             <option>Marketing</option>
-            <option>Engineering</option>
+            <option>Production</option>
           </select>
         </div>
         
@@ -991,12 +991,12 @@ function EmployeesContent({
                   )}
                 </button>
               </th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Employee</th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Department</th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Position</th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Status</th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Join Date</th>
-              <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Actions</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Employee</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Department</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Position</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Status</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Join Date</th>
+              <th className="text-left py-3 px-4 text-sm font-medium text-slate-700">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -1020,13 +1020,13 @@ function EmployeesContent({
                       {employee.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{employee.name}</div>
-                      <div className="text-sm text-gray-600">{employee.email}</div>
+                      <div className="font-medium text-slate-800">{employee.name}</div>
+                      <div className="text-sm text-slate-600">{employee.email}</div>
                     </div>
                   </div>
                 </td>
-                <td className="py-3 px-4 text-sm text-gray-700">{employee.department}</td>
-                <td className="py-3 px-4 text-sm text-gray-700">{employee.position}</td>
+                <td className="py-3 px-4 text-sm text-slate-700">{employee.department}</td>
+                <td className="py-3 px-4 text-sm text-slate-700">{employee.position}</td>
                 <td className="py-3 px-4">
                   <button 
                     onClick={() => onToggleStatus(employee.id)}
@@ -1043,7 +1043,7 @@ function EmployeesContent({
                     )}
                   </button>
                 </td>
-                <td className="py-3 px-4 text-sm text-gray-700">{employee.joinDate}</td>
+                <td className="py-3 px-4 text-sm text-slate-700">{employee.joinDate}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
                     <button 
@@ -1080,8 +1080,8 @@ function AttendanceContent({ data, employees, onAddAttendance }) {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Attendance Records</h2>
-          <p className="text-gray-600">Track and manage employee attendance</p>
+          <h2 className="text-xl font-bold text-slate-800">Attendance Records</h2>
+          <p className="text-slate-600">Track and manage employee attendance</p>
         </div>
         <div className="flex gap-3">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition duration-200">
@@ -2280,7 +2280,7 @@ function EmployeeModal({ onClose, onSave, employee, mode }) {
               <option value="">Select Department</option>
               <option value="Sales">Sales</option>
               <option value="Marketing">Marketing</option>
-              <option value="Engineering">Engineering</option>
+              <option value="Production">Production</option>
               <option value="HR">HR</option>
               <option value="Finance">Finance</option>
             </select>

@@ -9,7 +9,6 @@ import {
   Coffee, Heart, Sun, Umbrella, LogIn, LogOut, Activity,
   Smartphone, Circle, Map, Zap, AlertTriangle
 } from 'lucide-react';
-import TopNavMenu from './TopNavMenu';
 
 // Import Chart.js properly
 import Chart from 'chart.js/auto';
@@ -190,7 +189,7 @@ const EnhancedAttendancePieChart = ({ data }) => {
         </h4>
 
         {/* FILTER */}
-        <select className="px-4 py-2 text-sm border rounded-xl border-blue-200 bg-white text-gray-700 hover:bg-blue-50 transition shadow-sm">
+        <select className="px-4 py-2 text-sm border rounded-xl border-blue-200 bg-white text-slate-700 hover:bg-blue-50 transition shadow-sm">
           <option value="all">All Departments</option>
           <option value="Production">Production</option>
           <option value="sales">Sales</option>
@@ -205,9 +204,9 @@ const EnhancedAttendancePieChart = ({ data }) => {
           {/* Center Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <div className="text-center">
-              <div className="text-sm font-semibold text-gray-900">Team</div>
-              <div className="text-lg font-bold text-gray-900">Attendance</div>
-              <div className="text-xs text-gray-600 mt-1">{total} Employees</div>
+              <div className="text-sm font-semibold text-slate-800">Team</div>
+              <div className="text-lg font-bold text-slate-800">Attendance</div>
+              <div className="text-xs text-slate-600 mt-1">{total} Employees</div>
             </div>
           </div>
         </div>
@@ -300,7 +299,7 @@ const AttendanceTrendChart = ({ data }) => {
 
   return (
     <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg h-64">
-      <h4 className="font-bold text-gray-900 mb-6 text-lg">Attendance Trend</h4>
+      <h4 className="font-bold text-slate-800 mb-6 text-lg">Attendance Trend</h4>
       <canvas ref={chartRef} />
     </div>
   );
@@ -394,7 +393,7 @@ const DepartmentPerformanceChart = ({ data }) => {
 
   return (
     <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg h-64">
-      <h4 className="font-bold text-gray-900 mb-6 text-lg">Department Performance</h4>
+      <h4 className="font-bold text-slate-800 mb-6 text-lg">Department Performance</h4>
       <canvas ref={chartRef} />
     </div>
   );
@@ -476,7 +475,7 @@ const LocationDistributionChart = ({ data }) => {
 
   return (
     <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg h-64">
-      <h4 className="font-bold text-gray-900 mb-6 text-lg">Work Location Distribution</h4>
+      <h4 className="font-bold text-slate-800 mb-6 text-lg">Work Location Distribution</h4>
       <canvas ref={chartRef} />
     </div>
   );
@@ -710,17 +709,17 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
   <div className="flex-shrink-0 flex justify-between items-center px-8 py-6 border-b border-gray-200 ">
     <div>
       <div className="flex items-baseline gap-3">
-        <h2 className="text-2xl font-bold text-gray-900">{safeEmployee.employee.name}</h2>
+        <h2 className="text-2xl font-bold text-slate-800">{safeEmployee.employee.name}</h2>
         <span className="text-lg font-medium text-blue-600">{safeEmployee.employee.department}</span>
       </div>
-      <p className="text-gray-600 mt-2 text-sm">
+      <p className="text-slate-600 mt-2 text-sm">
         Performance Report • Showing {analytics.filteredRecords} of {analytics.totalRecords} records
       </p>
     </div>
 
     <button 
       onClick={onClose} 
-      className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
+      className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all duration-200"
     >
       <X className="h-5 w-5" />
     </button>
@@ -731,7 +730,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {/* Time Range Filter */}
       <div>
-        <label className="block text-sm font-semibold text-gray-800 mb-3">
+        <label className="block text-sm font-semibold text-slate-700 mb-3">
           Time Range
         </label>
         <select
@@ -747,7 +746,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
 
       {/* Status Filter */}
       <div>
-        <label className="block text-sm font-semibold text-gray-800 mb-3">
+        <label className="block text-sm font-semibold text-slate-700 mb-3">
           Status
         </label>
         <select
@@ -763,7 +762,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
 
       {/* Leave Type Filter */}
       <div>
-        <label className="block text-sm font-semibold text-gray-800 mb-3">
+        <label className="block text-sm font-semibold text-slate-700 mb-3">
           Leave Type
         </label>
         <select
@@ -779,7 +778,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
 
       {/* Alerts Filter */}
       <div>
-        <label className="block text-sm font-semibold text-gray-800 mb-3">
+        <label className="block text-sm font-semibold text-slate-700 mb-3">
           Alerts
         </label>
         <select
@@ -797,7 +796,7 @@ function EnhancedEmployeeDetailModal({ employee, onClose, attendanceData }) {
     {/* Active Filters Display */}
     {activeFilterCount > 0 && (
       <div className="mt-6 flex items-center gap-2 flex-wrap">
-        <span className="text-sm font-semibold text-gray-800">Active Filters:</span>
+        <span className="text-sm font-semibold text-slate-700">Active Filters:</span>
         {filters.timeRange !== 'All Time' && (
           <FilterChip
             label={`Time: ${filters.timeRange}`}
@@ -984,11 +983,11 @@ function EnhancedAttendanceTable({ data, onViewDetails }) {
     <table className="w-full">
       <thead>
         <tr className="border-b border-blue-100 bg-gradient-to-r from-blue-50 to-blue-50">
-          <th className="text-left py-5 px-6 text-sm font-bold text-gray-800">Employee</th>
-          <th className="text-left py-5 px-6 text-sm font-bold text-gray-800">Check In/Out</th>
-          <th className="text-left py-5 px-6 text-sm font-bold text-gray-800">Breaks</th>
-          <th className="text-left py-5 px-6 text-sm font-bold text-gray-800">Status</th>
-          <th className="text-left py-5 px-6 text-sm font-bold text-gray-800">Actions</th>
+          <th className="text-left py-5 px-6 text-sm font-bold text-slate-700">Employee</th>
+          <th className="text-left py-5 px-6 text-sm font-bold text-slate-700">Check In/Out</th>
+          <th className="text-left py-5 px-6 text-sm font-bold text-slate-700">Breaks</th>
+          <th className="text-left py-5 px-6 text-sm font-bold text-slate-700">Status</th>
+          <th className="text-left py-5 px-6 text-sm font-bold text-slate-700">Actions</th>
         </tr>
       </thead>
       <tbody className="divide-y divide-blue-100">
@@ -1021,8 +1020,8 @@ function EnhancedAttendanceRow({ record, onViewDetails }) {
             )}
           </div>
           <div>
-            <div className="font-bold text-gray-900">{record.employee.name}</div>
-            <div className="text-sm text-gray-600">{record.employee.department} • {record.employee.team}</div>
+            <div className="font-bold text-slate-800">{record.employee.name}</div>
+            <div className="text-sm text-slate-600">{record.employee.department} • {record.employee.team}</div>
           </div>
         </div>
       </td>
@@ -1761,8 +1760,6 @@ export function AdvancedAttendanceManagement() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      {/* Top Navigation Menu */}
-      <TopNavMenu activeItem="dashboard" setActiveItem={() => {}} isSidebarCollapsed={false} />
 
       <div className="p-8">
         <div className="space-y-8">
@@ -1794,8 +1791,8 @@ export function AdvancedAttendanceManagement() {
             <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.present}</p>
-                  <p className="text-sm font-semibold text-gray-600">Present</p>
+                  <p className="text-3xl font-bold text-slate-800">{stats.present}</p>
+                  <p className="text-sm font-semibold text-slate-600">Present</p>
                 </div>
                 <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 p-3 rounded-xl shadow-md">
                   <UserCheck className="h-6 w-6 text-white" />
@@ -1807,8 +1804,8 @@ export function AdvancedAttendanceManagement() {
             <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.absent}</p>
-                  <p className="text-sm font-semibold text-gray-600">Absent</p>
+                  <p className="text-3xl font-bold text-slate-800">{stats.absent}</p>
+                  <p className="text-sm font-semibold text-slate-600">Absent</p>
                 </div>
                 <div className="bg-gradient-to-r from-rose-500 to-rose-600 p-3 rounded-xl shadow-md">
                   <XCircle className="h-6 w-6 text-white" />
@@ -1820,8 +1817,8 @@ export function AdvancedAttendanceManagement() {
             <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.active}</p>
-                  <p className="text-sm font-semibold text-gray-600">Active</p>
+                  <p className="text-3xl font-bold text-slate-800">{stats.active}</p>
+                  <p className="text-sm font-semibold text-slate-600">Active</p>
                 </div>
                 <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-3 rounded-xl shadow-md">
                   <Activity className="h-6 w-6 text-white" />
@@ -1833,8 +1830,8 @@ export function AdvancedAttendanceManagement() {
             <div className="bg-gradient-to-br from-white to-blue-25 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.inactive}</p>
-                  <p className="text-sm font-semibold text-gray-600">Inactive</p>
+                  <p className="text-3xl font-bold text-slate-800">{stats.inactive}</p>
+                  <p className="text-sm font-semibold text-slate-600">Inactive</p>
                 </div>
                 <div className="bg-gradient-to-r from-slate-500 to-slate-600 p-3 rounded-xl shadow-md">
                   <Clock className="h-6 w-6 text-white" />
@@ -1864,14 +1861,14 @@ export function AdvancedAttendanceManagement() {
                     />
                   </div>
                   
-                  <div className="flex items-center gap-3 text-sm text-gray-600 bg-blue-50 px-4 py-2 rounded-xl">
+                  <div className="flex items-center gap-3 text-sm text-slate-600 bg-blue-50 px-4 py-2 rounded-xl">
                     <Filter className="h-4 w-4 text-blue-600" />
                     <span className="font-medium">{filteredData.length} of {attendanceData.length} records</span>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <label className="flex items-center gap-3 text-sm text-gray-700 bg-white px-4 py-2 rounded-xl border border-blue-200">
+                  <label className="flex items-center gap-3 text-sm text-slate-700 bg-white px-4 py-2 rounded-xl border border-blue-200">
                     <input
                       type="checkbox"
                       checked={realTimeUpdates}
@@ -1880,7 +1877,7 @@ export function AdvancedAttendanceManagement() {
                     />
                     Live Updates
                   </label>
-                  <label className="flex items-center gap-3 text-sm text-gray-700 bg-white px-4 py-2 rounded-xl border border-blue-200">
+                  <label className="flex items-center gap-3 text-sm text-slate-700 bg-white px-4 py-2 rounded-xl border border-blue-200">
                     <input
                       type="checkbox"
                       checked={autoRefresh}
@@ -1896,7 +1893,7 @@ export function AdvancedAttendanceManagement() {
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Department Filter */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Department
                   </label>
                   <select
@@ -1912,7 +1909,7 @@ export function AdvancedAttendanceManagement() {
 
                 {/* Status Filter */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Status
                   </label>
                   <select
@@ -1928,7 +1925,7 @@ export function AdvancedAttendanceManagement() {
 
                 {/* Time Range Filter */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Time Range
                   </label>
                   <select
@@ -1944,7 +1941,7 @@ export function AdvancedAttendanceManagement() {
 
                 {/* Break Status Filter */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Break Status
                   </label>
                   <select
