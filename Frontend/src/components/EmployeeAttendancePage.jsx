@@ -456,7 +456,7 @@ const AttendanceSheet = ({ attendanceData, onExport, onFilter }) => {
     window.URL.revokeObjectURL(url);
     
     // Show success notification
-    alert(`✅ Attendance report exported successfully!\n\nFile: Digious-Attendance-${employeeName}-${monthNames[selectedMonth]}_${selectedYear}.csv\nRecords: ${filteredData.length}`);
+    alert(`âœ… Attendance report exported successfully!\n\nFile: Digious-Attendance-${employeeName}-${monthNames[selectedMonth]}_${selectedYear}.csv\nRecords: ${filteredData.length}`);
   };
 
   // Quick month navigation
@@ -816,37 +816,37 @@ const AttendanceSheet = ({ attendanceData, onExport, onFilter }) => {
                   onClick={() => handleSort('date')}
                 >
                   <div className="flex items-center gap-1">
-                    📅 Date
+                    ðŸ“… Date
                     {sortBy === 'date' && (
                       <ChevronDown className={`h-4 w-4 transition-transform ${sortOrder === 'asc' ? 'rotate-180' : ''}`} />
                     )}
                   </div>
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
-                  📆 Day
+                  ðŸ“† Day
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
-                  🎯 Status
+                  ðŸŽ¯ Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
-                  📍 Check In
+                  ðŸ“ Check In
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
-                  📤 Check Out
+                  ðŸ“¤ Check Out
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider cursor-pointer hover:bg-blue-100 transition-colors"
                   onClick={() => handleSort('hours')}
                 >
                   <div className="flex items-center gap-1">
-                    ⏱️ Hours
+                    â±ï¸ Hours
                     {sortBy === 'hours' && (
                       <ChevronDown className={`h-4 w-4 transition-transform ${sortOrder === 'asc' ? 'rotate-180' : ''}`} />
                     )}
                   </div>
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
-                  📝 Remarks
+                  ðŸ“ Remarks
                 </th>
               </tr>
             </thead>
@@ -1285,7 +1285,7 @@ export function EmployeeAttendancePage() {
       
       await handleSystemCheckIn();
     } catch (error) {
-      alert('❌ Failed to check in. Please try again.');
+      alert('âŒ Failed to check in. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -1299,7 +1299,7 @@ export function EmployeeAttendancePage() {
     try {
       await handleSystemCheckOut();
     } catch (error) {
-      alert('❌ Failed to check out. Please try again.');
+      alert('âŒ Failed to check out. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -1703,4 +1703,171 @@ export function EmployeeAttendancePage() {
                         { name: 'Late', value: stats.late, color: '#f59e0b' },
                         { name: 'Absent', value: stats.absent, color: '#ef4444' },
                       ].map((entry, index) => (
-                        <Cell key={`cell-${index}`} fi
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RePieChart>
+                </ResponsiveContainer>
+                <div className="mt-4 flex justify-center gap-4 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className="text-sm text-gray-600">Present ({stats.present})</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <span className="text-sm text-gray-600">Late ({stats.late})</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <span className="text-sm text-gray-600">Absent ({stats.absent})</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Working Hours Trend */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <LineChart className="h-5 w-5 text-blue-600" />
+                  Working Hours Trend
+                </h4>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart
+                    data={attendanceData.slice(-7).map(record => ({
+                      date: new Date(record.date).getDate(),
+                      hours: parseFloat(record.hours),
+                      status: record.status
+                    }))}
+                  >
+                    <defs>
+                      <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis 
+                      dataKey="date" 
+                      stroke="#6b7280"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <YAxis 
+                      stroke="#6b7280"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#fff', 
+                        border: '1px solid #e5e7eb', 
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                      }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="hours" 
+                      stroke="#3b82f6" 
+                      strokeWidth={2}
+                      fillOpacity={1} 
+                      fill="url(#colorHours)" 
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Daily Performance Bar Chart */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-blue-600" />
+                  Daily Performance
+                </h4>
+                <span className="text-xs text-gray-500">Last 14 Days</span>
+              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  data={attendanceData.slice(-14).map(record => ({
+                    date: new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                    hours: parseFloat(record.hours),
+                    target: 9,
+                    status: record.status
+                  }))}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
+                  <XAxis 
+                    dataKey="date" 
+                    stroke="#6b7280"
+                    tick={{ fontSize: 11 }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                  />
+                  <YAxis 
+                    stroke="#6b7280"
+                    tick={{ fontSize: 12 }}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#fff', 
+                      border: '1px solid #e5e7eb', 
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                    }}
+                  />
+                  <Legend />
+                  <Bar dataKey="hours" fill="#3b82f6" radius={[8, 8, 0, 0]} name="Hours Worked" />
+                  <Bar dataKey="target" fill="#10b981" radius={[8, 8, 0, 0]} name="Target (9h)" opacity={0.3} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Attendance History Table */}
+            {/* <div className="mt-8 bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Attendance History</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Date</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Status</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Check In</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Check Out</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Hours</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {attendanceHistory.slice(0, 10).map((day, index) => {
+                      const statusInfo = getStatusInfo(day.status);
+                      return (
+                        <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                          <td className="py-3 px-4 text-sm text-gray-900">{formatDate(day.date)}</td>
+                          <td className="py-3 px-4">
+                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${statusInfo.color}`}>
+                              {statusInfo.text}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4 text-sm text-gray-900">{day.checkIn}</td>
+                          <td className="py-3 px-4 text-sm text-gray-900">{day.checkOut}</td>
+                          <td className="py-3 px-4 text-sm font-medium text-gray-900">{day.hours}h</td>
+                          <td className="py-3 px-4 text-sm text-gray-600">{day.remarks}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div> */}
+          </>
+        ) : (
+          <AttendanceSheet 
+            attendanceData={attendanceData}
+            onExport={() => {}}
+            onFilter={() => {}}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
