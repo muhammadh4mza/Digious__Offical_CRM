@@ -140,7 +140,7 @@ export function useAttendance() {
 
     setAttendanceData(updatedAttendance);
     
-    // Update system attendance
+    // Update system
     setSystemAttendance({
       checkedIn: false,
       checkOutTime: now,
